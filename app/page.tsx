@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 
 export default function Home() {
 
-  const [userInfo , setUserInfo]= useState()
-  const [loading , setLoading]= useState(false)
+const [userInfo, setUserInfo] = useState<string | null>(null);
+const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter()
   
   

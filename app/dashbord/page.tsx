@@ -1,12 +1,19 @@
 'use client'
 
 import Button from '@/components/Button';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
      const router = useRouter()
 
+
+     useEffect(()=>{
+        const user = localStorage.getItem('register');
+        if(!user){
+            router.push('/login')
+        }
+     },[])
 
      
     return (

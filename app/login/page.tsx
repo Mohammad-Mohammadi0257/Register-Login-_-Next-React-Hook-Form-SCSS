@@ -2,7 +2,7 @@
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -21,15 +21,24 @@ const schema = z.object({
 
 const Page = () => {
 
-    const [userInfo , setUserInfo] = useState()
     const router = useRouter()
+
+         useEffect(()=>{
+            const user = localStorage.getItem('register');
+            if(!user){
+                router.push('/')
+            }
+         },[])
     
+    
+
     
     const onSubmit = (data) =>{
             const info = localStorage.getItem('register')
             if(!info) return
 
              const user = JSON.parse(info);
+ 
             
         if (user?.name==data.name && 
             user?.password==data.password ) {
@@ -49,19 +58,11 @@ const Page = () => {
         })
         
         
-        useEffect(()=>{
-             const info = localStorage.getItem('register')
-            if(info){
-              setUserInfo(JSON.parse(info))  
-            }
-        },[])
-        
     return (
         <div className="register-container">
             <form className="my-form" onSubmit={handleSubmit(onSubmit)}>
-                {/* <div > */}
-                    <h1 className='title'>فرم ورود</h1>
-                {/* </div> */}
+
+                <h1 className='title'>فرم ورود</h1>
 
                 <Input 
                     type='text' 
@@ -74,7 +75,7 @@ const Page = () => {
                     type='password' 
                     label='رمز عبور'
                     {...register("password")}
-                    error={errors.password?.password}
+                    error={errors.password?.message}
                 />
 
                  {errors?.root && <p className="error">{errors.root.message}</p>}

@@ -1,11 +1,17 @@
 'use client'
 import React from 'react';
 
-const Input = ({ type,label ,error, ...res}) => {
+type InputType = {
+    label : string
+    type : 'text' | 'password' | 'email'
+    error ?: string
+} & React.InputHTMLAttributes<HTMLInputElement>
+
+const Input : React.FC<InputType> = ({ type,label ,error, ...res}) => {
     
     return (
         <div>
-            <span >{label} :</span>
+            <label >{label} :</label>
             <input className='input' type={type} {...res}/>
             {error && (
                 <p className='error'>{error}</p>
